@@ -16,12 +16,13 @@ df_result = df_result[['userName', 'score','at', 'content']]
 def labeling(score):
     if score<3:
         return 'Negative'
-    elif score==3 :
-        return 'Neutral'
+    # elif score==3 :
+    #     return 'Neutral'
     elif score>3 :
         return 'Positive'
-df_result['label'] = df_result['score'].apply(labeling)
+df_result['Label'] = df_result['score'].apply(labeling)
+df_result.dropna(subset=['Label'],inplace = True)
+
 df_result.to_csv('data_export.csv', index=False)
 df_result.to_excel('data_export.xlsx', index=False)
-
 print(df_result.head())

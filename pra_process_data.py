@@ -15,7 +15,7 @@ def pra_proses(text):
     return text
 
 
-X_train, X_test, y_train, y_test = train_test_split(data_clean['content'], data_clean['label'], test_size = 0.20, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(data_clean['content'], data_clean['Label'], test_size = 0.20, random_state = 0)
 
 tfidf_vectorizer = TfidfVectorizer()
 tfidf_train = tfidf_vectorizer.fit_transform(X_train)
@@ -59,13 +59,17 @@ clf.fit(X_train, y_train)
 predicted = clf.predict(X_test)
 
 print("MultinomialNB Accuracy:", accuracy_score(y_test,predicted))
-print("MultinomialNB Precision:", precision_score(y_test,predicted, average="micro", zero_division=0))
-print("MultinomialNB Recall:", recall_score(y_test,predicted, average="micro", zero_division=0))
-print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="micro", zero_division=0))
+# print("MultinomialNB Precision:", precision_score(y_test,predicted, average="micro", zero_division=0))
+# print("MultinomialNB Recall:", recall_score(y_test,predicted, average="micro", zero_division=0))
+# print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="micro", zero_division=0))
+print("MultinomialNB Precision:", precision_score(y_test,predicted, average="binary", pos_label="Positive"))
+print("MultinomialNB Recall:", recall_score(y_test,predicted, average="binary", pos_label="Positive"))
+print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="binary", pos_label="Positive"))
 
 print(f'confusion_matrix:\n {confusion_matrix(y_test, predicted)}')
-print('====================================================\n')
+print('=====================================================\n')
 print(classification_report(y_test, predicted, zero_division=0))
+print('=====================================================\n')
 
 # Load dataset
 # data_clean = pd.read_csv('hasil_TextPreProcessing_shopee.csv')
