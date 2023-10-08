@@ -2,6 +2,7 @@ import re
 
 import nltk
 import pandas as pd
+from textblob import TextBlob
 
 my_df = pd.read_csv('data_export.csv')
 print(my_df.shape[0])
@@ -16,7 +17,28 @@ def clean_text(df, text_field, new_text_field_name):
 my_df['text_clean'] = my_df['content'].str.lower()
 my_df['text_clean']
 data_clean = clean_text(my_df, 'content', 'text_clean')
-# print(data_clean.head(10))
+
+def sentiment(polarity):
+    if polarity > 0.0:
+        return "Positive"
+    elif polarity == 0.0:
+        return "Neutral"
+    elif polarity < 0.0:
+        return "Negative"
+
+data_clean['polarity'] = data_clean['text_clean'].apply(lambda x: TextBlob(x).sentiment.polarity)
+data_clean['sentiment'] = data_clean['polarity'].apply(sentiment)
+print(data_clean.head(10))
+sentiment_counts = data_clean['sentiment'].value_counts()
+print(sentiment_counts)
+sentiment_counts = data_clean['Label'].value_counts()
+print(sentiment_counts)
+
+# Menggunakan operator & (dan) untuk menggabungkan dua kondisi
+count = len(data_clean[(data_clean['Label'] == 'Neutral') & ((data_clean['sentiment'] == 'Negative'))])
+
+# Mencetak jumlah baris yang memenuhi kondisi
+print(f"Jumlah baris dengan Label 'Neutral' dan sentiment 'Positive' atau 'Negative': {count}")
 
 # nltk.download('stopwords')
 from nltk.corpus import stopwords

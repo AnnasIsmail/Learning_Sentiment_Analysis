@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
 data_clean = pd.read_csv('data_export_processed.csv')
+data_clean = data_clean[data_clean['Label'] != 'Neutral']
 
 def pra_proses(text):
     text = re.sub('<[^>]*>', '', text)
@@ -62,9 +63,9 @@ print("MultinomialNB Accuracy:", accuracy_score(y_test,predicted))
 # print("MultinomialNB Precision:", precision_score(y_test,predicted, average="micro", zero_division=0))
 # print("MultinomialNB Recall:", recall_score(y_test,predicted, average="micro", zero_division=0))
 # print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="micro", zero_division=0))
-print("MultinomialNB Precision:", precision_score(y_test,predicted, average="binary", pos_label="Positive"))
-print("MultinomialNB Recall:", recall_score(y_test,predicted, average="binary", pos_label="Positive"))
-print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="binary", pos_label="Positive"))
+print("MultinomialNB Precision:", precision_score(y_test,predicted, average="binary", pos_label="Negative"))
+print("MultinomialNB Recall:", recall_score(y_test,predicted, average="binary", pos_label="Negative"))
+print("MultinomialNB f1_score:", f1_score(y_test,predicted, average="binary", pos_label="Negative"))
 
 print(f'confusion_matrix:\n {confusion_matrix(y_test, predicted)}')
 print('=====================================================\n')
