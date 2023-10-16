@@ -4,8 +4,8 @@ from google_play_scraper import Sort, reviews
 
 result, continuation_token = reviews(
     'com.openai.chatgpt',
-    lang='id',  # defaults to 'en'
-    country='id',  # defaults to 'us'
+    lang='en',  # defaults to 'en'
+    country='us',  # defaults to 'us'
     # defaults to Sort.MOST_RELEVANT you can use Sort.NEWEST to get newst reviews
     sort=Sort.NEWEST,
     count=100000,  # defaults to 100

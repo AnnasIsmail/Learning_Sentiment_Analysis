@@ -54,7 +54,7 @@ print(
 
 # nltk.download('stopwords')
 
-stop = stopwords.words('indonesian')
+stop = stopwords.words('english')
 data_clean['text_StopWord'] = data_clean['text_clean'].apply(
     lambda x: ' '.join([word for word in x.split() if word not in (stop)]))
 # print(data_clean.head(10))
